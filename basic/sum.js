@@ -1,7 +1,7 @@
 console.log("hello");
 function sum(item){
     let total=0
-    for(i=0;i<item;i++){
+    for(i=1;i<(item+1);i++){
         total+=i
     }
     return total
