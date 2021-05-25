@@ -1,6 +1,7 @@
-(1) 請問下列程式執行後的結果為何？為什麼？
-console.log("start");
+##(1) 請問下列程式執行後的結果為何？為什麼？
 
+``
+console.log("start");
 (function () {
   console.log("IIFE");
   setTimeout(function () {
@@ -9,32 +10,38 @@ console.log("start");
 })();
 
 console.log("end");
+``
 
-
+結果：
 start
 IIFE
 end
 Timeout
+原因：有設定setTimeout，所以需要等時間跑完
 
-(2) 請問下列程式執行的結果為何？為什麼？
+##(2) 請問下列程式執行的結果為何？為什麼？
+
+``
 console.log("start");
-
 (function () {
   console.log("IIFE");
   setTimeout(function () {
     console.log("Timeout");
   }, 0);
 })();
-
 console.log("end");
+``
 
-
+結果：
 start
 IIFE
 end
 Timeout
+原因：
 
-(3) 請問下列程式執行的結果為何？為什麼？
+##(3) 請問下列程式執行的結果為何？為什麼？
+
+``
 const bar = () => console.log("bar");
 const baz = () => console.log("baz");
 const foo = () => {
@@ -42,14 +49,16 @@ const foo = () => {
     bar();
     baz();
 };
-
 foo();
+``
 
 foo
 bar
 baz
 
-(4) 請問下列程式執行的結果為何？為什麼？
+##(4) 請問下列程式執行的結果為何？為什麼？
+
+``
 const bar = () => console.log("bar");
 const baz = () => console.log("baz");
 const foo = () => {
@@ -57,8 +66,8 @@ const foo = () => {
     setTimeout(bar, 0);
     baz();
 };
-
 foo();
+``
 
 foo
 baz
