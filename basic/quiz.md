@@ -17,7 +17,7 @@ start
 IIFE
 end
 Timeout
-原因：有設定setTimeout，所以需要等時間跑完
+原因：有設定setTimeout
 
 ## (2) 請問下列程式執行的結果為何？為什麼？
 
