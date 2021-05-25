@@ -76,7 +76,7 @@ I/O 就是 input / output 的簡稱，是程式跟系統記憶體或網路的互
 >>1. 單執行緒 (single-threaded):一次只能執行一件事情，相反是多執行緒 (multi-threaded)
 >>2. 非阻塞（non-blocking） 
 >>3. 非同步 (asynchronous) 
->>為了達到「讓等待 I/O 時不要卡住其他程式碼」，在多執行緒上Java的解法是開一個新的執行緒，於是「非同步 (asynchronous)」的出現變得非常關鍵。
+>>>為了達到「讓等待 I/O 時不要卡住其他程式碼」，在多執行緒上Java的解法是開一個新的執行緒，於是「非同步 (asynchronous)」的出現變得非常關鍵。
 >JavaScript 實現非同步的方法不斷演進著：從 callback 函式、promises 到最新的 async-await 函式。
 
 * 了解js當中的事件:
@@ -85,7 +85,7 @@ I/O 就是 input / output 的簡稱，是程式跟系統記憶體或網路的互
 >> Libuv 在面對非同步作業時，會開啟執行緒池(thread pool/worker pool)，預設共有四個執行緒（worker threads），運算這些 I/O 用的方式是事件迴圈(event loop)。
 
 * 了解Webapi定義:
->>1. 向 API 發送請求
+>>1. 向 API 發送請求:之前練習xhr = new XMLHttpRequest()，在xhr.open('get','網址',true)，最後的true非同步，不會等資料傳回來，才讓程式繼續往下跑，false 則會等資料傳回來，才讓程式繼續往下。
 >>2. setTimeout
 >>3. document：使用 document.querySelector 去獲得你要操作的 DOM 其實也是瀏覽器提供的，是讓 Javascript 可以和瀏覽器溝通的方法。
 >> 瀏覽器提供了很多 WebAPI (ex: document、XMLHttpRequest、setTimeout) 給我們使用，他們不在 V8 引擎中，也是我們無法取得的內容，我們只能呼叫這些功能去執行他，當瀏覽器知道你要呼叫他們來用的時候，就可以和你的程式碼同時一起執行 (Concurrency) ，也不會影響到你的 JS 主程式，
