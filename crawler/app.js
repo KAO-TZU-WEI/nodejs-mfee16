@@ -1,8 +1,5 @@
-// https://www.twse.com.tw/exchangeReport/BWIBBU_d?
-// response=json
-// date=20210525
-// selectType=ALL&_=1622009217406
-
+// 110年05月25日個股日本益比、殖利率及股價淨值比-中央證券交易所
+// axios.<method> will now provide autocomplete and parameter typings
 const axios = require('axios');
 
 // 給指定的ID創建請求
@@ -11,7 +8,7 @@ axios.get('https://www.twse.com.tw/exchangeReport/BWIBBU_d', {
         response: 'json',
         date: '20210525',
         selectType: 'ALL'
-    }
+    },
 })
     .then(function (response) {
         if (response.status) {
@@ -25,10 +22,10 @@ axios.get('https://www.twse.com.tw/exchangeReport/BWIBBU_d', {
         }
     })
     .catch(function (error) {
-        // handle error
+        // 若有錯誤訊息會顯示
         console.log(error);
     })
     .then(function () {
-        // always executed
+        // 總是會執行的地方
         console.log('跑到這裡嘍');
     });
