@@ -19,13 +19,13 @@ doWork("刷牙", 2000, function (err, result) {
             return;
         }
         console.log(result);
-    });
-    doWork("寫功課", 6000, function (err, result) {
-        if (err) {
-            console.error(err);
-            return;
-        }
-        console.log(result);
+        doWork("寫功課", 6000, function (err, result) {
+            if (err) {
+                console.error(err);
+                return;
+            }
+            console.log(result);
+        });
     });
 });
 
