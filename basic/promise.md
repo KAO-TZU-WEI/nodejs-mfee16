@@ -55,12 +55,11 @@ processUserInput(greeting);
 - promise 在創建時本身帶的函式是同步的，不會進 Event Loop。
 - Promise 構造函數 (constructor) 接受一個函數作為參數，這個函數會在建立 Promise 物件的同時立刻被執行，該函數有兩個參數分別是 resolve (解決)函數和 reject (拒絕)函數，resolve/reject 這兩個函數會由 JavaScript interpreter 自動傳入。
 - **每一次呼叫 then() 其實都會產生新的 Promise。一個 Promise 可以呼叫多次 then()，這些 then() 中的程式碼不會在第一時間就被執行，而是當 promise 被 resolve 後，才會執行 then() 中的程式碼。**<br>
-  一個 Promise 物件有以下幾種狀態：<br>
-  並且一但狀態改變就會固定，永遠不會再改變狀態了。
+- 一個 Promise 物件有以下幾種狀態：並且一但狀態改變就會固定，永遠不會再改變狀態了。
 
-- 等待置（pending）：與初始狀態，未完成被拒絕。
-- 實現（fulfilled）：表示操作成功地完成。
-- 拒絕（rejected）：表示操作失敗了。
+1. 等待置（pending）：與初始狀態，未完成被拒絕。
+2. 實現（fulfilled）：表示操作成功地完成。
+3. 拒絕（rejected）：表示操作失敗了。
 
 ```js
 const promise = new Promise(function (resolve, reject) {
