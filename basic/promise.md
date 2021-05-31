@@ -55,11 +55,8 @@ processUserInput(greeting);
 - promise 在創建時本身帶的函式是同步的，不會進 Event Loop。
 - Promise 構造函數 (constructor) 接受一個函數作為參數，這個函數會在建立 Promise 物件的同時立刻被執行，該函數有兩個參數分別是 resolve (解決)函數和 reject (拒絕)函數，resolve/reject 這兩個函數會由 JavaScript interpreter 自動傳入。
 - **每一次呼叫 then() 其實都會產生新的 Promise。一個 Promise 可以呼叫多次 then()，這些 then() 中的程式碼不會在第一時間就被執行，而是當 promise 被 resolve 後，才會執行 then() 中的程式碼。**<br>
-
----
-
-一個 Promise 物件有以下幾種狀態：<br>
-並且一但狀態改變就會固定，永遠不會再改變狀態了。
+  一個 Promise 物件有以下幾種狀態：<br>
+  並且一但狀態改變就會固定，永遠不會再改變狀態了。
 
 - 等待置（pending）：與初始狀態，未完成被拒絕。
 - 實現（fulfilled）：表示操作成功地完成。
@@ -158,13 +155,13 @@ getData();
 - npm 他是一個套件管理工具，類似一個倉庫，我們可以從裡面去下載東西出來用。
 - npm 從 5.2 版開始，增加了 npx 命令。npx 想要解決的主要問題，就是調用項目內部安裝的模塊。**就算想調用的模組不存在在電腦，也會偷偷下載後刪除**
 
-  > npm uninstall //解除安裝套件，例如：npm uninstall express -g<br>
-  > npm search //搜尋套件<br>
-  > npm ls -g //列出所有全局套件<br>
-  > npm ls -gl //列出全域套件詳細資訊<br>
-  > npm ls -l //列出專案裡的套件詳細資訊<br>
-  > npm update -g //更新全域套件<br>
-  > npm update //更新專案裡的套件<br>
+> npm uninstall //解除安裝套件，例如：npm uninstall express -g<br>
+> npm search //搜尋套件<br>
+> npm ls -g //列出所有全局套件<br>
+> npm ls -gl //列出全域套件詳細資訊<br>
+> npm ls -l //列出專案裡的套件詳細資訊<br>
+> npm update -g //更新全域套件<br>
+> npm update //更新專案裡的套件<br>
 
 ## gitignore
 
