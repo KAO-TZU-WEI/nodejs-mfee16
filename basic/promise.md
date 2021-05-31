@@ -170,13 +170,8 @@ getData();
 
 gitignore 顧名思義就是叫 git 忽略掉特定的檔案，而不被紀錄。<br>
 
-```
-mkdir file
-cd file
-git init
-touch .gitignore
-code .gitignore
-git add .
-git commit -m'add .gitignore file'
-touch 不希望追蹤的檔案
-```
+> touch .gitignore<br>
+> code .gitignore<br>
+> git add .<br>
+> git commit -m'add .gitignore file'<br>
+> touch 不希望追蹤的檔案
