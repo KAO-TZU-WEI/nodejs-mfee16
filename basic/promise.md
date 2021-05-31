@@ -12,10 +12,9 @@
 
 ## callback
 
-A function that is to be executed after another function has finished executing.<br>
-**「控制流程，並把函式當作另一個函式的參數，透過另一個函式來呼叫它」，回呼常用來延續非同步行動完成後的程式執行：這就叫做非同步回呼（asynchronous callbacks）**<br>
-常用的地方有 document.addEventListener('click',function(){})和 ajax request。<br>
-而使用 callback 有兩個主要缺點：回呼地域(Callback Hell)和控制權轉移(Inversion of Control)所造成的信任問題。<br>
+- 「控制流程，並把函式當作另一個函式的參數，透過另一個函式來呼叫它」，**回呼常用來延續非同步行動完成後的程式執行**：這就叫做非同步回呼（asynchronous callbacks）
+- 常用的地方有 document.addEventListener('click',function(){})和 ajax request。
+- 而使用 callback 有兩個主要缺點：回呼地域(Callback Hell)和控制權轉移(Inversion of Control)所造成的信任問題。
 
 ```js
 function sum(n, cb) {
@@ -53,14 +52,14 @@ processUserInput(greeting);
 
 ## promise
 
-promise 在創建時本身帶的函式是同步的，不會進 Event Loop。<br>
-Promise 構造函數 (constructor) 接受一個函數作為參數，這個函數會在建立 Promise 物件的同時立刻被執行，該函數有兩個參數分別是 resolve (解決)函數和 reject (拒絕)函數，resolve/reject 這兩個函數會由 JavaScript interpreter 自動傳入。<br>
-**每一次呼叫 then() 其實都會產生新的 Promise。一個 Promise 可以呼叫多次 then()，這些 then() 中的程式碼不會在第一時間就被執行，而是當 promise 被 resolve 後，才會執行 then() 中的程式碼。**<br>
+- promise 在創建時本身帶的函式是同步的，不會進 Event Loop。
+- Promise 構造函數 (constructor) 接受一個函數作為參數，這個函數會在建立 Promise 物件的同時立刻被執行，該函數有兩個參數分別是 resolve (解決)函數和 reject (拒絕)函數，resolve/reject 這兩個函數會由 JavaScript interpreter 自動傳入。
+- **每一次呼叫 then() 其實都會產生新的 Promise。一個 Promise 可以呼叫多次 then()，這些 then() 中的程式碼不會在第一時間就被執行，而是當 promise 被 resolve 後，才會執行 then() 中的程式碼。**<br>
 
 ---
 
 一個 Promise 物件有以下幾種狀態：<br>
-並且一但狀態改變就會固定，永遠不會再改變狀態了。<br>
+並且一但狀態改變就會固定，永遠不會再改變狀態了。
 
 - 等待置（pending）：與初始狀態，未完成被拒絕。
 - 實現（fulfilled）：表示操作成功地完成。
@@ -75,7 +74,7 @@ const promise = new Promise(function (resolve, reject) {
 });
 ```
 
-then 可以串接非同步程式。講得更精確一點是，.then 不論是非同步或者同步的程式都可以串接<br>
+then 可以串接非同步程式。講得更精確一點是，.then 不論是非同步或者同步的程式都可以串接。
 Promise 物件生成後，可以用 then() 方法來綁定當 fulfilled 或 rejected 狀態時，分別要執行的函數。<br>
 **then 可接受兩個函式作為參數，第一個函式用於成功（resolve）時要執行的任務，第二個函式用於失敗（reject）時要執行的任務**<br>
 
@@ -97,19 +96,19 @@ promise
 
 #### Promise.all([ .. ])
 
-所有的 promise 都回傳成功了才進入下一個任務，在此之前都是等待，但若其一回傳為失敗就進入失敗的處理狀況。常用於需要迭代的狀況。<br>
+所有的 promise 都回傳成功了才進入下一個任務，在此之前都是等待，但若其一回傳為失敗就進入失敗的處理狀況。常用於需要迭代的狀況。
 
 #### Promise.race([ .. ])
 
-只要有任一 promise 回傳成功就進入下一個任務，其餘的都忽略。<br>
+只要有任一 promise 回傳成功就進入下一個任務，其餘的都忽略。
 
 #### Promise.any([ .. ])
 
-只要有任一 promise 是成功的，就會履行。<br>
+只要有任一 promise 是成功的，就會履行。
 
 #### Promise.resolve(value)
 
-Promise.resolve() 函數用來將一個物件轉型為 Promise (如果它不是一個 Promise 物件)，然後立刻 resolve 它。<br>
+Promise.resolve() 函數用來將一個物件轉型為 Promise (如果它不是一個 Promise 物件)，然後立刻 resolve 它。
 
 ## try...catch
 
@@ -127,9 +126,9 @@ try {
 
 ## Async/Await
 
-async function 可以用來定義一個非同步函式，讓這個函式本體是屬於非同步，但其內部以“同步的方式運行非同步”程式碼。<br>
-await 則是可以暫停非同步函式的運行（中止 Promise 的運行），直到非同步進入 resolve 或 reject，當接收完回傳值後繼續非同步函式的運行。<br>
-**該函式是以非同步的方式運行，無法直接使用 console.log 取得其值。在 Promise 中，如果要取得 resolve 的結果會使用 then，而 async function 也是相同使用 then()**<br>
+- async function 可以用來定義一個非同步函式，讓這個函式本體是屬於非同步，但其內部以“同步的方式運行非同步”程式碼。
+- await 則是可以暫停非同步函式的運行（中止 Promise 的運行），直到非同步進入 resolve 或 reject，當接收完回傳值後繼續非同步函式的運行。
+- **該函式是以非同步的方式運行，無法直接使用 console.log 取得其值。在 Promise 中，如果要取得 resolve 的結果會使用 then，而 async function 也是相同使用 then()**
 
 ```js
 async function getData() {
@@ -140,9 +139,9 @@ async function getData() {
 getData();
 ```
 
-await 是屬於一元運算子，它會直接回傳後方表達式的值；但如果是 Promise 時則會 “等待” resovle 的結果並回傳。<br>
-雖然是運算子，但是在原始碼中直接運行 await 則會出現錯誤，它只能在 async function 中運行，所以 async/await 基本上是一體的，不會單獨出現。<br>
-**await 可以直接回傳後方的表達式，或者將非同步函式中的 Promise 暫停，如以下範例的 await promiseFn(2) 會 “等待” resolve 結果回傳後，在賦予至 data2 才會回傳。**<br>
+- await 是屬於一元運算子，它會直接回傳後方表達式的值；但如果是 Promise 時則會 “等待” resovle 的結果並回傳。
+- 雖然是運算子，但是在原始碼中直接運行 await 則會出現錯誤，它只能在 async function 中運行，所以 async/await 基本上是一體的，不會單獨出現。
+- **await 可以直接回傳後方的表達式，或者將非同步函式中的 Promise 暫停，如以下範例的 await promiseFn(2) 會 “等待” resolve 結果回傳後，在賦予至 data2 才會回傳。**
 
 ```js
 async function getData() {
