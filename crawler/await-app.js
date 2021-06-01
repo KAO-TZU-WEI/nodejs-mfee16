@@ -1,5 +1,5 @@
 const axios = require("axios");
-
+const moment = require("moment");
 // TODO: 從 stock.txt 讀股票代碼進來
 // filesystem
 // npm i fs ??? -> 不用
@@ -21,7 +21,7 @@ async function manager() {
       .get("https://www.twse.com.tw/exchangeReport/STOCK_DAY", {
         params: {
           response: "json",
-          date: "20210523",
+          date: moment().format("YYYYMMDD"),
           stockNo: await xhrPromise(),
         },
       })
