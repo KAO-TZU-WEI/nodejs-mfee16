@@ -1,12 +1,11 @@
 const axios = require("axios");
-
+const fs = require("fs");
 // TODO: 從 stock.txt 讀股票代碼進來
 // filesystem
 // npm i fs ??? -> 不用
 
 function xhrPromise() {
   return new Promise((resolve, reject) => {
-    const fs = require("fs");
     fs.readFile("stock.txt", "utf8", (err, data) => {
       if (err) {
         reject(err);
