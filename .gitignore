@@ -2,3 +2,5 @@ node_modultes
 stock.txt
 logs
 *.log
+.env
+.DS_Store
