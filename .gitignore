@@ -1,6 +1,6 @@
 node_modultes
-stock.txt
-logs
+../crawler/stock.txt
+../crawler/logs
 *.log
-.env
+../crawler/.env
 ../simple-web/.DS_Store
