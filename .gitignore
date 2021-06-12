@@ -3,4 +3,4 @@ stock.txt
 logs
 *.log
 .env
-.DS_Store
+../simple-web/.DS_Store
