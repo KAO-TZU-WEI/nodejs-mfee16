@@ -21,7 +21,10 @@ const server = http.createServer((req, res) => {
       res.end("這是購物頁面");
       break;
     case "/about":
-      res.end("這是關於我們");
+      // 把 query string 抓出來用
+      // set vs get 存取運算子
+      let name = url.searchParams.get("name") || "網友";
+      res.end(`Hi, ${name} 這是關於我們`);
       break;
     default:
       res.writeHead(404);
