@@ -6,14 +6,22 @@ const http = require("http");
 // Listener(request, response) 負責處理進來的連線
 // request 是請求物件
 // response 是回覆物件
+
 const server = http.createServer((req, res) => {
   console.log("新連線進來了");
   console.log(req.url);
+  // 將 url 一般化，移除他的 query string、非必要的結尾斜線，並且一率小寫
+  const path = req.url.replace(/\/?(?:\?.*)?$/, "").toLocaleLowerCase();
+  console.log(`path:${path}`);
+
+  // 處理 query string-node.js內建的模組可以把字串變成物件。
+  const url = new URL(req.url, `http://${req.headers.host}`);
+  console.log(url.searchParams);
 
   res.statusCode = 200; // 2xx, 3xx, 4xx, 5xx
   res.setHeader("Content-Type", "text/plain;charset=UTF-8");
 
-  switch (req.url) {
+  switch (path) {
     case "/":
       res.end("歡迎光臨，這是首頁");
       break;
