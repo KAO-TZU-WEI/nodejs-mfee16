@@ -48,4 +48,4 @@ OkPacket {
 
 > 參考資料
 >
-> > > https://kerol2r20.github.io/post/2017-11-16-promisify-node/ <br> > > > http://bluebirdjs.com/docs/api/promise.promisifyall.html <br> > > > https://codertw.com/%E5%89%8D%E7%AB%AF%E9%96%8B%E7%99%BC/245406/<br>
+> > > https://kerol2r20.github.io/post/2017-11-16-promisify-node/ <br> http://bluebirdjs.com/docs/api/promise.promisifyall.html <br> https://codertw.com/%E5%89%8D%E7%AB%AF%E9%96%8B%E7%99%BC/245406/<br>
