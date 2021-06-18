@@ -22,7 +22,7 @@ const server = http.createServer((req, res) => {
   res.setHeader("Content-Type", "text/plain;charset=UTF-8");
 
   switch (path) {
-    case "/":
+    case "":
       res.end("歡迎光臨，這是首頁");
       break;
     case "/shopping":
