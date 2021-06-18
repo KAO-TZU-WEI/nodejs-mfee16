@@ -4,7 +4,7 @@
 const express = require("express");
 //利用express 建立一個express application app
 let app = express();
-
+app.use(express.static("public"));
 //middleware中間件,中介函式
 // req -> router
 // req -> middlewares..... -> router
