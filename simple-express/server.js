@@ -5,6 +5,12 @@ const express = require("express");
 //利用express 建立一個express application app
 let app = express();
 app.use(express.static("public"));
+
+// 第一個是變數 第二個是檔案夾名稱
+app.set("views", "views");
+// 告訴express我們用view engine是pug
+app.set("view engine", "pug");
+
 //middleware中間件,中介函式
 // req -> router
 // req -> middlewares..... -> router
@@ -17,10 +23,10 @@ app.use(function (req, res, next) {
 //路由router
 //exprerr由上而下執行，找到就停住
 app.get("/", function (req, res) {
-  res.send("hello Express");
+  res.render("index");
 });
 app.get("/about", function (req, res) {
-  res.send("about Express");
+  res.render("about");
 });
 app.get("/test", function (req, res) {
   res.send("test Express");
