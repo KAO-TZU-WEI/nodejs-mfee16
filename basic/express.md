@@ -4,12 +4,14 @@
 - express 由路由和中介函式件構成的 web 開發框架，其框架建立在內置的 http 模塊上。
 - incoming Request -> middleware(next) -> middleware(next) -> middleware(next) -> response
 - Client -> Request -> Server ->time function -> authorization functio -> Server -> Response -> Client
+- NodeJS 為了提高效能，我們引入模組後，它都會進行快取。
 
 ## router(路由)
 
 - Express 提供了 Router 的功能，透過它我們能更簡便的去設定 API 的 HTTP method 及 API URL。
 - 路由是指應用程式端點 (URI) 的定義，以及應用程式如何回應用戶端要求。
 - express.Router 類別用來建立可裝載的模組路由處理程式。
+- HTTP 的動詞: get, post, put, delete...
 
 ```js
 var express = require("express");
@@ -128,4 +130,27 @@ app.use((req, res, next) => {
 
   next();
 });
+```
+
+## 使用範本引擎
+
+views：範本檔所在的目錄。例如：app.set('views', './views')
+view engine：要使用的範本引擎。例如：app.set('view engine', 'pug')
+
+```js
+app.set("view engine", "pug");
+//然後建立路由，以呈現 index.pug 檔。如果未設定 view engine 內容，您必須指定 view 檔的副檔名。
+app.get("/", function (req, res) {
+  res.render("index", { title: "Hey", message: "Hello there!" });
+});
+```
+
+### res.render() ＆ res.send()
+
+- res.render()用於呈現視圖，並將呈現的 HTML 字符串發送給客戶端。
+- res.send()只能用一次，和原生的 res.end() 一樣。但 send()已自動幫我們設置了 Content-Type 頭部和 200 狀態碼。
+
+```js
+//res.render(view [, locals] [, callback])
+res.render("stock/list", { result });
 ```
