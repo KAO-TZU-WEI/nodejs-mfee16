@@ -1,0 +1,42 @@
+/* table,
+th,
+td {
+  border: 1px solid black;
+} */
+body {
+  width: 50%;
+  margin: auto;
+  text-align: center;
+}
+table {
+  border-spacing: 0;
+  width: 100%;
+}
+tr {
+  text-align: center;
+}
+th {
+  padding: 10px;
+}
+table tr:nth-child(odd) {
+  background-color: #eee;
+}
+table th {
+  background-color: rgb(57, 138, 41);
+  color: white;
+}
+table th:first-child {
+  border-radius: 5px 0 0 0;
+  border: 1px solid rgb(57, 138, 41);
+}
+table th:last-child {
+  border-radius: 0 5px 0 0;
+  border-right: 1px solid blue;
+}
+table tr:last-child td:first-child {
+  border-radius: 0 0 0 5px;
+}
+
+table tr:last-child td:last-child {
+  border-radius: 0 0 5px 0;
+}

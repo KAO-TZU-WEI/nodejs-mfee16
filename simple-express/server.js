@@ -1,8 +1,8 @@
 //npm init -f和npm i express指令後，導入express這個package
 // module < package < framework
 // express is a package，但完整到足以被稱為是框架
-const express = require("express");
 //利用express 建立一個express application app
+const express = require("express");
 let app = express();
 app.use(express.static("public"));
 
@@ -14,6 +14,8 @@ app.set("view engine", "pug");
 //middleware中間件,中介函式
 // req -> router
 // req -> middlewares..... -> router
+const data = require("./utils/db");
+
 app.use(function (req, res, next) {
   let current = new Date();
   console.log(`有人來訪了，在${current}`);
@@ -27,6 +29,11 @@ app.get("/", function (req, res) {
 });
 app.get("/about", function (req, res) {
   res.render("about");
+});
+app.get("/stock", async function (req, res) {
+  let result = await data.connection.queryAsync(`SELECT * FROM stock `);
+  //console.log(result);
+  res.render("stock/list", { result });
 });
 app.get("/test", function (req, res) {
   res.send("test Express");
