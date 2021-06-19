@@ -1,6 +1,11 @@
 extends _layouts/master
-script(src="/javascripts/api.js")
+
 block scripts
+  //- 專屬 index.pug
+  script(src="/JavaScript/api.js")
 block content
-   h1 這是首頁
-   p 練習中
+  h1 這是首頁
+  table
+       tr 
+         //td #{stock.stock_id} 
+         //td #{stock.stock_name}  

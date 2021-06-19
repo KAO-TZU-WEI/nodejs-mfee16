@@ -14,7 +14,7 @@ app.set("view engine", "pug");
 //middleware中間件,中介函式
 // req -> router
 // req -> middlewares..... -> router
-const data = require("./utils/db");
+//const data = require("./utils/db");
 
 app.use(function (req, res, next) {
   let current = new Date();
@@ -24,7 +24,9 @@ app.use(function (req, res, next) {
 });
 
 let stockRouter = require("./routes/stock");
+let apiRouter = require("./routes/api");
 app.use("/stock", stockRouter);
+app.use("/api", apiRouter);
 
 //路由router
 //exprerr由上而下執行，找到就停住
