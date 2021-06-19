@@ -1,6 +1,7 @@
 extends ../_layouts/master
 
 block content 
+    h1 #{stock[0].stock_name}的資料
     table
         tr 
             th 日期
@@ -15,3 +16,7 @@ block content
                 td #{stockItem.open_price}
                 td #{stockItem.high_price}  
                 td #{stockItem.low_price}  
+
+    .pagination 
+        - for(var  p = 1; p <= pagination.lastPage; p++)
+            a(href=`/stock/${stock[0].stock_id}?page=${p}`, class=p==pagination.currentPage?"active":"") #{p}
