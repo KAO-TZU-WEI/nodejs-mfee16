@@ -22,6 +22,10 @@ app.use(function (req, res, next) {
   // 幾乎都要呼叫，讓他往下繼續
   next();
 });
+
+let stockRouter = require("./routes/stock");
+app.use("/stock", stockRouter);
+
 //路由router
 //exprerr由上而下執行，找到就停住
 app.get("/", function (req, res) {
@@ -29,19 +33,6 @@ app.get("/", function (req, res) {
 });
 app.get("/about", function (req, res) {
   res.render("about");
-});
-app.get("/stock", async function (req, res) {
-  let result = await data.connection.queryAsync(`SELECT * FROM stock `);
-  //console.log(result);
-  res.render("stock/list", { result });
-});
-app.get("/stock/:stockCode", async (req, res) => {
-  // req.params.stockCode 可以取得路由變數
-  let resultList = await data.connection.queryAsync(
-    `SELECT * FROM stock_price WHERE stock_id = ?`,
-    req.params.stockCode
-  );
-  res.render("stock/detail", { resultList });
 });
 app.get("/test", function (req, res) {
   res.send("test Express");
