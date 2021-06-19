@@ -35,6 +35,14 @@ app.get("/stock", async function (req, res) {
   //console.log(result);
   res.render("stock/list", { result });
 });
+app.get("/stock/:stockCode", async (req, res) => {
+  // req.params.stockCode 可以取得路由變數
+  let resultList = await data.connection.queryAsync(
+    `SELECT * FROM stock_price WHERE stock_id = ?`,
+    req.params.stockCode
+  );
+  res.render("stock/detail", { resultList });
+});
 app.get("/test", function (req, res) {
   res.send("test Express");
 });

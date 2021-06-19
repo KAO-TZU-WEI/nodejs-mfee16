@@ -1,0 +1,17 @@
+extends ../_layouts/master
+
+block content 
+    table
+        tr 
+            th 日期
+            th 股票代碼
+            th 開盤價
+            th 最高價
+            th 最低價
+        each stockItem in resultList
+            tr  
+                td #{stockItem.date} 
+                td #{stockItem.stock_id} 
+                td #{stockItem.open_price}
+                td #{stockItem.high_price}  
+                td #{stockItem.low_price}  
