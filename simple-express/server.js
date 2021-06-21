@@ -4,27 +4,45 @@
 //利用express 建立一個express application app
 const express = require("express");
 let app = express();
-app.use(express.static("public"));
 
 // 第一個是變數 第二個是檔案夾名稱
 app.set("views", "views");
 // 告訴express我們用view engine是pug
 app.set("view engine", "pug");
 
-//middleware中間件,中介函式
-// req -> router
-// req -> middlewares..... -> router
-//const data = require("./utils/db");
-
 // 加上這個中間鍵就能解讀POST的資料
 app.use(express.urlencoded({ extended: false }));
+//利用 res.cookie 去設定 cookie
+const cookieParser = require("cookie-parser");
+app.use(cookieParser());
+//產生一個session ID可以透過此ID來找到在伺服器的session
+// 問題是怎麼知道這一個 request 的 session 是誰？？？？
+// ==> 把 session id 存在 cookie
+// （express-session 預設的 cookie name: connect.sid）
+//console.log(process.env.SESSION_SECRET);
 
-let stockRouter = require("./routes/stock");
-let apiRouter = require("./routes/api");
-let authRouter = require("./routes/auth");
-app.use("/stock", stockRouter);
-app.use("/api", apiRouter);
-app.use("/auth", authRouter);
+// 處理session
+require("dotenv").config();
+const expressSession = require("express-session");
+app.use(
+  expressSession({
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    //當session
+    saveUninitialized: false,
+  })
+);
+
+//這個動作在每個路由做，也都可以，但是用中間函式共用會更好
+//建立一個中間函式-把 req.session.member 設定給 res.locals
+//可以透過這個方式把資料傳給view
+app.use(function (req, res, next) {
+  //把request的session資料設定給res的local
+  //views就可以取得資料
+  //locals是response物件提供的一個屬性，讓我們可以傳遞到view
+  res.locals.member = req.session.member;
+  next();
+});
 
 //紀錄來訪中間件
 app.use(function (req, res, next) {
@@ -34,9 +52,29 @@ app.use(function (req, res, next) {
   next();
 });
 
+//因為訊息只希望顯示一次
+//所以傳到views一次後就刪掉
+app.use(function (req, res, next) {
+  if (req.session.message) {
+    res.locals.message = req.session.message;
+    delete req.session.message;
+  }
+  next();
+});
+let stockRouter = require("./routes/stock");
+let apiRouter = require("./routes/api");
+let authRouter = require("./routes/auth");
+let memberRouter = require("./routes/member");
+app.use("/stock", stockRouter);
+app.use("/api", apiRouter);
+app.use("/auth", authRouter);
+app.use("/member", memberRouter);
+app.use(express.static("public"));
+
 //路由router
 //exprerr由上而下執行，找到就停住
 app.get("/", function (req, res) {
+  res.cookie("lang", "zh-TW");
   res.render("index");
 });
 app.get("/about", function (req, res) {

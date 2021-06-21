@@ -6,6 +6,9 @@ router.get("/", async function (req, res) {
   let result = await data.connection.queryAsync(`SELECT * FROM stock `);
   //console.log(result);
   res.render("stock/list", { result });
+  //另一個寫法是
+  //res.lacals.stocks = result;
+  //res.render("stock/detail");
 });
 router.get("/:stockCode", async (req, res) => {
   // req.params.stockCode 可以取得路由變數

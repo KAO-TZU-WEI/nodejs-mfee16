@@ -26,19 +26,19 @@ table th {
   color: white;
 }
 table th:first-child {
-  border-radius: 5px 0 0 0;
+  border-radius: 2px 0 0 0;
   border: 1px solid rgb(57, 138, 41);
 }
 table th:last-child {
-  border-radius: 0 5px 0 0;
+  border-radius: 0 2px 0 0;
   border-right: 1px solid blue;
 }
 table tr:last-child td:first-child {
-  border-radius: 0 0 0 5px;
+  border-radius: 0 0 0 2px;
 }
 
 table tr:last-child td:last-child {
-  border-radius: 0 0 5px 0;
+  border-radius: 0 0 2px 0;
 }
 
 /* pagination */
@@ -56,7 +56,7 @@ table tr:last-child td:last-child {
 .pagination a.active {
   background-color: #4caf50;
   color: white;
-  border-radius: 5px;
+  border-radius: 2px;
 }
 
 .pagination a:hover:not(.active) {
@@ -66,7 +66,7 @@ table tr:last-child td:last-child {
 /* form */
 .form {
   width: 100%;
-  border-radius: 5px;
+  border-radius: 2px;
   background-color: #f2f2f2;
   padding: 20px;
 }
@@ -81,7 +81,7 @@ select {
   margin: 8px 0;
   display: inline-block;
   border: 1px solid #ccc;
-  border-radius: 4px;
+  border-radius: 2px;
   box-sizing: border-box;
 }
 
@@ -93,7 +93,7 @@ button {
   padding: 14px 20px;
   margin: 8px 0;
   border: none;
-  border-radius: 4px;
+  border-radius: 2px;
   cursor: pointer;
 }
 
@@ -111,10 +111,13 @@ ul {
   background-color: #4caf50;
   top: 0;
   width: 100%;
+  display: flex;
+  justify-content: space-around;
+  border-radius: 2px;
 }
 
 li {
-  float: left;
+  justify-content: space-between;
 }
 
 li a {
