@@ -46,6 +46,23 @@ app.get("/", function (req, res) {
   >
   > 2. 路由器層次的中介函式-（例如：router.use）
   >
+  > ```js
+  > var app = express();
+  > var router = express.Router();
+  > // a middleware sub-stack shows request info for any type of HTTP request to the /user/:id path
+  > router.use(
+  >   "/user/:id",
+  >   function (req, res, next) {
+  >     console.log("Request URL:", req.originalUrl);
+  >     next();
+  >   },
+  >   function (req, res, next) {
+  >     console.log("Request Type:", req.method);
+  >     next();
+  >   }
+  > );
+  > ```
+  >
   > 3. 錯誤處理中介函式-一律會使用四個引數。（例如：app.use（err，req，res，next））
   >
   > ```js
@@ -196,7 +213,7 @@ res.render("index", {
 // res.render('index');
 ```
 
-## exports = modules.exports
+### exports = modules.exports
 
 在模組的底層，exports 和 modules.exports 指向同一個地址。
 
@@ -233,6 +250,12 @@ return module.exports;
 - 為了便於比較 ./ 和 ../ 我們使用 path.resolve('./') 來轉換為絕對路徑。
 - path.join() 是 path 核心模組提供的一個方法, 可以幫助開法者在拼接路徑字串時, 減少出錯機率
 
+### 中間件幫助開發
+
+- app.use(express.urlencoded()); ->middleware 幫我們解讀 POST 的資料
+- app.use(express.json()); -> middleware 幫我們讀資料和轉換成 JSON Object。
+-
+
 > 參考資料
 >
-> > > https://itbilu.com/nodejs/npm/EJD5cyg3l.html <br>https://itbilu.com/nodejs/npm/Ny0k0TKP-.html<br>https://dylan237.github.io/nodejs-dirname-and-filename.html
+> > https://itbilu.com/nodejs/npm/EJD5cyg3l.html <br>https://itbilu.com/nodejs/npm/Ny0k0TKP-.html<br>https://dylan237.github.io/nodejs-dirname-and-filename.html
