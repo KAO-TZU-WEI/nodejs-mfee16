@@ -3,29 +3,42 @@ const router = express.Router();
 const { body, validationResult } = require("express-validator");
 const { connection } = require("../utils/db");
 const bcrypt = require("bcrypt");
+//原生套件path是用來串接路徑join
 const path = require("path");
 const multer = require("multer");
 
-// const stoarge = multer.diskStorage({
-//   destination: function (req, file, cd) {
-//     //routes/auth.js->現在位置
-//     //public/uploads ->希望找到的位置
-//     //routes/../public/uploads
-//     cb(null, path.join(__dirname, "../", "public", "uploads"));
-//   },
-// });
-// //用一個multer做一個上傳工具
-// const uploader = multer({
-//   storage: myStorage,
-//   fileFilter: function (req, file, cb) {
-//     if (file.mimetype !== "image/jpeg") {
-//       return cb(new Error("不合法的file type"), false);
-//     }
-//     if(!file.orginalname.match(){
-//         return cb(new Error("不合格的副檔名"))
-//     }
-//   },
-// });
+//設定上傳檔案的儲存方式
+const myStorage = multer.diskStorage({
+  //目的地
+  destination: function (req, file, cb) {
+    //_dirname是被執行的js檔所在的絕對路徑
+    cb(null, path.join(__dirname, "../", "public", "uploads"));
+  },
+  //因為預設沒有副檔名，組合自己想要的檔案名稱
+  filename: function (req, file, cb) {
+    const ext = file.originalname.split(".").pop();
+    cb(null, `${file.fieldname}-${Date.now()}.${ext}`);
+  },
+});
+//用multer做一個上傳工具
+const uploader = multer({
+  storage: myStorage,
+  fileFilter: function (req, file, cb) {
+    if (file.mimetype !== "image/jpeg") {
+      return cb(new Error("不合法的file type"), false);
+    }
+    //file.originalname 原本電腦的檔案名稱
+    if (!file.originalname.match(/\.(jpg|jpeg|png)$/)) {
+      return cb(new Error("是不合格的副檔名"));
+    }
+    //檔案ok接收這個檔案
+    cb(null, true);
+  },
+  limits: {
+    //檔案大小1M
+    fieldSize: 1024 * 1024,
+  },
+});
 
 // 註冊表單資料的驗證規則
 const registerRules = [
@@ -35,72 +48,45 @@ const registerRules = [
     return value === req.body.password;
   }),
 ];
-// // 設定上傳檔案儲存方式
-// const myStorage = multer.diskStorage({
-//   destination: function (req, file, cb) {
-//     cb(null, path.join(__dirname, "../", "public", "upload"));
-//   },
-//   filename: function (req, file, cb) {
-//     const ext = file.originalname.split(".").pop();
-//     cb(null, `${file.fieldname}-${Date.now()}.${ext}`);
-//   },
-// });
-
-// // 用multer做上傳工具
-// const uploader = multer({
-//   storage: myStorage,
-//   fileFilter: function (req, file, cb) {
-//     // console.log(file)
-//     if (file.mimetype !== "image/jpeg") {
-//       return cb(new Error("不合法", false));
-//     }
-//     if (!file.originalname.match(/\.(jpg|jpeg|png)$/)) {
-//       return cb(new Error("不合格的附檔名", false));
-//     }
-
-//     cb(null, true);
-//   },
-//   limits: { fileSize: 1024 * 1024 },
-// });
-
 router.get("/register", (req, res) => {
   res.render("auth/register");
 });
-router.post("/register", registerRules, async (req, res, next) => {
-  //res.send("這裡是POST register");
-  console.log("這是/register的req.body內容：", req.body);
-  //要做資料驗證
-  const validateResult = validationResult(req);
-  //console.log(validateResult);
-  //不是空的就是有問題
-  if (!validateResult.isEmpty()) {
-    return next(new Error("註冊表單資料有問題"));
+router.post(
+  "/register",
+  uploader.single("photo"), //是input的value
+  registerRules,
+  async (req, res, next) => {
+    //console.log("這是/register的req.body內容：", req.body);
+    //要做資料驗證
+    const validateResult = validationResult(req);
+    //console.log(validateResult);
+    //不是空的就是有問題
+    if (!validateResult.isEmpty()) {
+      return next(new Error("註冊表單資料有問題"));
+    }
+    //先檢查email是否註冊過了
+    let checkResult = await connection.queryAsync(
+      "SELECT * FROM members WHERE email=?",
+      req.body.email
+    );
+    if (checkResult.length > 0) {
+      return next(new Error("已經註冊過了"));
+    }
+    let filepath = req.file ? "/uploads/" + req.file.filename : null;
+    let result = await connection.queryAsync(
+      "INSERT INTO members (email, password, name, photo) VALUES (?)",
+      [
+        [
+          req.body.email,
+          await bcrypt.hash(req.body.password, 10),
+          req.body.name,
+          filepath, //file.filename是自己取的
+        ],
+      ]
+    );
+    res.send("註冊成功");
   }
-  //先檢查email是否註冊過了
-  let checkResult = await connection.queryAsync(
-    "SELECT * FROM members WHERE email=?",
-    req.body.email
-  );
-  if (checkResult.length > 0) {
-    return next(new Error("已經註冊過了"));
-  }
-  let result = await connection.queryAsync(
-    "INSERT INTO members (email, password, name) VALUES (?)",
-    [[req.body.email, await bcrypt.hash(req.body.password, 10), req.body.name]]
-  );
-  //   let result = await connection.queryAsync(
-  //     "INSERT INTO members (email, password, name, photo) VALUES (?)",
-  //     [
-  //       [
-  //         req.body.email,
-  //         await bcrypt.hash(req.body.password, 10),
-  //         req.body.name,
-  //         `/upload/${req.file.filename}`,
-  //       ],
-  //     ]
-  //   );
-  res.send("註冊成功");
-});
+);
 router.get("/login", function (req, res) {
   res.render("auth/login");
 });
