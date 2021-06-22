@@ -254,7 +254,6 @@ return module.exports;
 
 - app.use(express.urlencoded()); ->middleware 幫我們解讀 POST 的資料
 - app.use(express.json()); -> middleware 幫我們讀資料和轉換成 JSON Object。
--
 
 > 參考資料
 >
