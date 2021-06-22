@@ -132,7 +132,7 @@ app.use((req, res, next) => {
 });
 ```
 
-## 使用範本引擎
+### 使用範本引擎
 
 views：範本檔所在的目錄。例如：app.set('views', './views')
 view engine：要使用的範本引擎。例如：app.set('view engine', 'pug')
@@ -154,3 +154,85 @@ app.get("/", function (req, res) {
 //res.render(view [, locals] [, callback])
 res.render("stock/list", { result });
 ```
+
+### res.redirect & res.location()
+
+- res.location（路徑）<br>
+  Express 通過 Location 頭將指定的 URL 字符串傳遞給瀏覽器，它並不會對指定的字符串進行驗證（除'back'外）。
+- res.redirect([狀態,] 路徑)<br>
+  與 location()相比，redirect()除了要設置 path 外，還可以指定一個狀態碼。而 path 參數則與 location()完全相同。
+  > status：{Number}，表示要設置的 HTTP 狀態碼，不指定狀態碼默認為 302<br>
+  > path：{String}，要設置到 Location 頭中的 URL
+
+```js
+res.location("../member");
+res.location("http://google.com");
+res.redirect(301, "http://google.com");
+```
+
+- 進行 URL 重定向時，服務器只在響應信息的 HTTP 頭信息中設置了 HTTP 状态码和 Location 頭信息。當狀態碼為 301 或 302 時（301－永久重定向、302－臨時重定向、303 See Other），表示資源位置發生了改變，需要進行重定向。Location 頭信息表示了資源的改變的位置，即：要跳重定向的 URL。
+
+- URL 重定向是在瀏覽器端完成的，而 URL 重定向與 HTTP 状态码和 Location 頭有關。瀏覽器首先會判斷狀態碼，只有當狀態碼是：301 或 302 時，才會根據 Location 頭中的 URL 進行跳轉。所以，使用 location()設置頭信息，而不設置狀態碼或狀態碼不是 301 或 302，並不會發生重定向
+
+### app.locals & res.locals
+
+- locals 是 Express 應用中 Application( app)對象和 Response( res)對像中的屬性，該屬性是一個對象。
+- 該對象的主要作用是，將值傳遞到所渲染的模板中，返回值：Object。
+- app.locals 會在整個生命週期中起作用；而 res.locals 只會有當前請求中起作用。
+- 由於 app.locals 在當前應用所有的渲染模中訪問，於是可以在該對像中定義一些頂級/全局的數據，並在渲染模板中使用。
+
+```js
+res.render("index", {
+  name: "IT筆錄",
+  url: "http://itbilu.com",
+  introduce: "學習、記錄、整理",
+});
+// 也可以使用res.locals 變量
+// res.locals = {
+// name:'IT筆錄',
+// url:'http://itbilu.com',
+// introduce:'學習、記錄、整理'
+// };
+// res.render('index');
+```
+
+## exports = modules.exports
+
+在模組的底層，exports 和 modules.exports 指向同一個地址。
+
+```js
+//exports = modules.exports = {};
+exports.getColor = function () {
+  console.log("get color");
+  return "red";
+};
+module.exports.setColor = function (color) {
+  console.log("set color");
+};
+
+return module.exports;
+//會得到getColor和setColor
+
+//另一個情境
+// const car = {
+//   brand: "tesla",
+//   color: "red",
+// };
+// exports = car;
+// module.exports=car;
+// 傳回是空值，因為export已經被指向另一個地址，而module.exports是空物件
+```
+
+### 絕對路徑
+
+- 在 Node.js 中, 大概有 ＿dirname、＿filename、process.cwd() 或者 ./ 和 ../, 前三者都是絕對路徑。
+  > ＿dirname： 獲得當前執行文件所在目錄的完整目錄名<br>
+  > ＿filename： 獲得當前執行文件的帶有完整絕對路徑的文件名<br>
+  > process.cwd()：獲得當前執行 node 命令時候的文件夾目錄名<br>
+  > ./： 文件所在目錄
+- 為了便於比較 ./ 和 ../ 我們使用 path.resolve('./') 來轉換為絕對路徑。
+- path.join() 是 path 核心模組提供的一個方法, 可以幫助開法者在拼接路徑字串時, 減少出錯機率
+
+> 參考資料
+>
+> > > https://itbilu.com/nodejs/npm/EJD5cyg3l.html <br>https://itbilu.com/nodejs/npm/Ny0k0TKP-.html<br>https://dylan237.github.io/nodejs-dirname-and-filename.html
