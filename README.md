@@ -17,3 +17,7 @@
 ## myweb 資料夾
 
 - 使用指令快速建立 express 專案
+
+## crawler 資料夾
+
+- 使用 Promise 和 bluebird 來實現非同步的機制並做資料爬蟲
