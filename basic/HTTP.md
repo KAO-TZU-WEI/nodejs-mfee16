@@ -28,6 +28,11 @@ Cookie 是伺服器（Server）傳送給瀏覽器（Client）的一小片段資�
 - Delete:刪除資源。
 - Head:只要獲取 request 的 header，不要 body。
 
+## HTTP Cache
+
+- Cache 可節省流量嘛，也節省時間，或是更宏觀地來說，減少資源的損耗。
+- 可以在 HTTP Response Header 裡面加上一個 Expires 的字段，裡面就是這個 Cache 到期的時間。
+
 ## HTTP 狀態碼(Http status code)
 
 - 2xx：成功。
@@ -72,4 +77,4 @@ Cookie 是伺服器（Server）傳送給瀏覽器（Client）的一小片段資�
 - 在 Linux 的 /etc/services 檔案，Windows 的 C:\Windows\system32\drivers\etc\services 檔案，記錄了網路服務名、埠號、協定、別名。
 - ip address 就像是地址一樣，當網路請求送到這個地址後，還需要有 port 這個東西，好讓大樓管理員(作業系統)知道這封信要送到幾樓幾室去，這是必須事先有人開好這個幾樓幾室，如果你的電腦中沒有任何軟體可以接收 80 port (或其他任何指定的 port)，那作業系統也只能把這封信(網路請求)給丟掉
 
-<br>參考資料<br> [HTTP Cookies 和 Session 使用](https://medium.com/%E9%BA%A5%E5%85%8B%E7%9A%84%E5%8D%8A%E8%B7%AF%E5%87%BA%E5%AE%B6%E7%AD%86%E8%A8%98/%E7%AD%86%E8%A8%98-http-cookie-%E5%92%8C-session-%E4%BD%BF%E7%94%A8-19bc740e49b5) <br>[HTTP cookies](https://developer.mozilla.org/zh-TW/docs/Web/HTTP/Cookies)<br>[伺服器端的介紹](https://developer.mozilla.org/zh-TW/docs/Learn/Server-side/First_steps/Introduction)<br>[網路基礎-HTTP、Request、Response](https://miahsuwork.medium.com/%E7%AC%AC%E5%85%AD%E9%80%B1-%E7%B6%B2%E8%B7%AF%E5%9F%BA%E7%A4%8E-http-request-response-7d7e0cb88ed8)<br>[何謂網路伺服器？](https://developer.mozilla.org/zh-TW/docs/Learn/Common_questions/What_is_a_web_server)<br>[網頁伺服器（Web Server）是什麼?](https://www.newscan.com.tw/all-knowledge/knowledge-detail-6.htm)<br>[通訊埠](https://zh.wikipedia.org/wiki/%E9%80%9A%E8%A8%8A%E5%9F%A0)
+<br>參考資料<br> [HTTP Cookies 和 Session 使用](https://medium.com/%E9%BA%A5%E5%85%8B%E7%9A%84%E5%8D%8A%E8%B7%AF%E5%87%BA%E5%AE%B6%E7%AD%86%E8%A8%98/%E7%AD%86%E8%A8%98-http-cookie-%E5%92%8C-session-%E4%BD%BF%E7%94%A8-19bc740e49b5) <br>[HTTP cookies](https://developer.mozilla.org/zh-TW/docs/Web/HTTP/Cookies)<br>[伺服器端的介紹](https://developer.mozilla.org/zh-TW/docs/Learn/Server-side/First_steps/Introduction)<br>[網路基礎-HTTP、Request、Response](https://miahsuwork.medium.com/%E7%AC%AC%E5%85%AD%E9%80%B1-%E7%B6%B2%E8%B7%AF%E5%9F%BA%E7%A4%8E-http-request-response-7d7e0cb88ed8)<br>[何謂網路伺服器？](https://developer.mozilla.org/zh-TW/docs/Learn/Common_questions/What_is_a_web_server)<br>[網頁伺服器（Web Server）是什麼?](https://www.newscan.com.tw/all-knowledge/knowledge-detail-6.htm)<br>[通訊埠](https://zh.wikipedia.org/wiki/%E9%80%9A%E8%A8%8A%E5%9F%A0)<br>[循序漸進理解 HTTP Cache 機制](https://blog.techbridge.cc/2017/06/17/cache-introduction/)
