@@ -21,7 +21,7 @@
 
 ## Amazon Relational Database Service (RDS)
 
--AWS 幫忙管理 mysql 的維運，讓使用者能夠在雲端中輕鬆設定、操作和擴展關聯式資料庫。
+- AWS 幫忙管理 mysql 的維運，讓使用者能夠在雲端中輕鬆設定、操作和擴展關聯式資料庫。
 
 ## Nginx web server
 
@@ -29,12 +29,12 @@
 - nginx / apache 這類的 web server 會提供接受 http 網路請求，https 則是 HTTP over TLS，他還是 HTTP ，但利用 SSL 來加密，比較安全。
 - Nginx 的主設定檔為/etc/nginx/nginx.conf。由虛擬主機各別的設定，可以被放在/etc/nginx/sites-available 目錄中，而要上線的虛擬主機，可以將其設定檔的符號連結放置在/etc/nginx/sites-enabled 目錄中。
 
-### Nginx 的主設定檔為/etc/nginx/nginx.conf。
+### 主設定檔為/etc/nginx/nginx.conf。
 
 - nginx 的設定檔案也算是一種巢狀的格式，把左邊當作 key，右邊當作 value，最後面分號就是一個段落的結束。
   listen 是 key，80 是 value，一來就是要聽 80 port。
 
-### error_log 路徑為/var/log/nginx/access.log。
+### 錯誤紀錄為/var/log/nginx/error_log。
 
 - 設定錯誤日誌的存放位置，若第一個參數傳入檔案路徑，則可以存到檔案系統中。
 
