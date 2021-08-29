@@ -2,7 +2,7 @@
 
 ## basic 資料夾
 
-- express、callback、promise、HTTP、bluebird、AWS 的重點整理
+- express、callback、promise、HTTP、bluebird、AWS、MYSQL 的重點整理
 
 ## simple-express 資料夾
 
