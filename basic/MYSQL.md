@@ -6,6 +6,12 @@
 - Entities (tables) 和 Relations 的集合，建立 ER model。
 - 把 DATABASE 和 SCHEMA 當作一樣的。
 
+## 資料庫正規化 database normalization
+
+- 1NF 的去除重複:將資料的欄位單一性以及完整性，也就是一個欄位一筆資料
+- 2NF 的部分相依:檢查同個表格內的其他欄位都有跟 PK 值有關係，若如果沒有就表示還可以再分割
+- 3NF 的間接相依:說得是 PK 值以外，有相互相依的兩個欄位，就可以再切出去
+
 ## 資料定義語言 Data Definition Language(DDL)
 
 - CREATE 建立資料庫的物件，包括資料庫和表格。
